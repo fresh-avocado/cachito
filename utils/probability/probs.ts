@@ -17,11 +17,11 @@ export const atLeastNSuccesses = ({ N, nTrials, probOfSuccess }: { N: number, nT
     prob += choose(nTrials, i) * Math.pow(probOfSuccess, i) * Math.pow(1 - probOfSuccess, nTrials - i);
   }
   prob *= 100;
-  return prob.toString().slice(0, 6);
+  return prob.toFixed(7).slice(0, 6);
 };
 
 export const calzar = ({ N, nTrials, probOfSuccess }: { N: number, nTrials: number, probOfSuccess: number }): string => {
   let prob = choose(nTrials, N) * Math.pow(probOfSuccess, N) * Math.pow(1 - probOfSuccess, nTrials - N);
   prob *= 100;
-  return prob.toString().slice(0, 6);
+  return prob.toFixed(7).slice(0, 6);
 };

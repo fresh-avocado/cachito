@@ -1,7 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import {
   atLeastNSuccesses,
@@ -10,6 +8,10 @@ import {
   probOfAsPatoTrenCuadraChinaSambaPaloFijo,
   probOfPatoTrenCuadraChinaSamba,
 } from "../utils/probability/probs";
+
+const oneToHundred = Array(100)
+  .fill(1)
+  .map((n, i) => n + i);
 
 const getProb = (type: number, paloFijo: boolean): number => {
   if (paloFijo) {
@@ -102,7 +104,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="w-full h-full flex flex-col items-center text-center">
-        <h1 className="text-5xl text-center rounded-lg bg-indigo-600 p-3 shadow-indigo-500/50">
+        <h1 className="text-5xl text-center rounded-lg border-2 ring-1 dark:bg-indigo-600 p-3 shadow-indigo-500/50">
           Gana en Cachito
         </h1>
         <div className="w-full max-w-xl flex flex-col gap-6 items-center p-4 rounded-lg shadow-xl dark:shadow-custom m-5 text-start">
@@ -128,28 +130,34 @@ const Home: NextPage = () => {
             <div className="flex justify-center items-center font-bold">
               Dados en juego:
             </div>
-            <input
-              className="border-b-2 border-b-red-600 outline-none dark:bg-slate-800"
-              type="number"
-              min={1}
-              max={99}
+            <select
               value={dies}
               onChange={(e) => setDies(+e.target.value)}
-            />
+              className="border-b-2 border-b-red-600 outline-none dark:bg-slate-800"
+            >
+              {oneToHundred.map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="w-full h-8 flex justify-between">
             <div className="flex justify-center items-center font-bold">
               Lo que te dijo el jugador anterior:
             </div>
             <div className="flex gap-1">
-              <input
-                className="border-b-2 border-b-red-600 outline-none dark:bg-slate-800"
-                type="number"
-                min={1}
-                max={99}
+              <select
                 value={quantity}
                 onChange={(e) => setQuantity(+e.target.value)}
-              />
+                className="border-b-2 border-b-red-600 outline-none dark:bg-slate-800"
+              >
+                {oneToHundred.map((n) => (
+                  <option key={n} value={n}>
+                    {n}
+                  </option>
+                ))}
+              </select>
               <select
                 className="w-32 border-b-2 border-b-red-600 outline-none dark:bg-slate-800"
                 value={`${type}`}
@@ -220,13 +228,21 @@ const Home: NextPage = () => {
       </main>
 
       <footer className="flex flex-col justify-center items-center">
-        <div>Página hecha por:</div>
+        <div>Página hecha por</div>
         <a
           className="text-indigo-700 font-bold hover:underline hover:decoration-solid"
           href="https://www.linkedin.com/in/gabriel-spranger/"
           target="_blank"
         >
           Gabriel Spranger Rojas
+        </a>
+        <div>con la colaboración de</div>
+        <a
+          className="text-indigo-700 font-bold hover:underline hover:decoration-solid"
+          href="https://www.linkedin.com/in/jose-matias-echevarria-lara/"
+          target="_blank"
+        >
+          Jose Matías Echevarría
         </a>
       </footer>
     </div>
